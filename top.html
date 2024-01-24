@@ -1,0 +1,75 @@
+<html>
+	<head>
+		<style type="text/css">
+			body{
+				color: #ffffff;
+			}
+			.a
+        	{
+				background-color: #45A29E;
+				border: none;
+				color: black
+				padding : 3px 3px;
+				text-align: center;
+				font-size: 16px;
+				cursor: pointer;
+				border-radius: 5px;
+				width: 130px;
+				height: 30px;
+        	}
+			.a:hover
+			{
+				background-color: hsl(207, 92%, 28%);
+				border: none;
+				color: black
+				padding: 5px 5px;
+				text-align: center;
+				text-decoration: none;
+				display: inline-block;
+				font-size: 16px;
+				cursor: pointer;
+				border-radius: 5px;
+				width: 130px;
+				height: 30px;
+			}
+		</style>
+	</head>	
+
+	<body bgcolor="#0B0C10" align="center">
+		<font size="5px">
+			<b >ANIL NEERUKONDA INSTITUTE OF TECHNOLOGY & SCIENCES<br></b>
+		</font>
+		<font size="4px">
+			Autonomous status accorded by UGC and Andhra University<br>
+			Approved by AICTE, Permanently Affiliated to Andhra University,<br>
+			Accredited by NBA (ECE, EEE,CBE, IT, Mech, Civil & Chemical) & NAAC<br>
+		</font>
+			<button style="float: right;" onclick="f1()" class="a">black & blue</button>&nbsp;&nbsp;&nbsp;
+			<button style="float: right;" onclick="f2()" class="a">green & brown</button>
+			<script>
+				function f1()
+					{
+						window.parent.frames["top2"].document.body.style.backgroundColor="#1F2833";
+						window.parent.frames["left"].document.body.style.backgroundColor="#1F2833";
+						window.parent.frames["right"].document.body.style.backgroundColor="gray";
+						document.body.style.backgroundColor="#0B0C10";
+						window.parent.frames["top2"].document.body.style.fontFamily = "Arial,Verdana,Helvetica";
+						window.parent.frames["left"].document.body.style.fontFamily = "Arial,Verdana,Helvetica";
+						window.parent.frames["right"].document.body.style.fontFamily = "Arial,Verdana,Helvetica";
+						document.body.style.fontFamily = "Arial,Verdana,Helvetica";
+					}
+					function f2()
+					{
+						window.parent.frames["top2"].document.body.style.backgroundColor=" #171613";
+						window.parent.frames["left"].document.body.style.backgroundColor=" #171613";
+						window.parent.frames["right"].document.body.style.backgroundColor=" #E59560";
+						document.body.style.backgroundColor=" #1D3124";
+						window.parent.frames["top2"].document.body.style.fontFamily="Lucida Console, Courier New, monospace";
+						window.parent.frames["left"].document.body.style.fontFamily="Lucida Console, Courier New, monospace";
+						window.parent.frames["right"].document.body.style.fontFamily="Lucida Console, Courier New, monospace";
+						document.body.style.fontFamily="Lucida Console, Courier New, monospace";
+					}
+			</script>
+	</body>
+</html>
+
