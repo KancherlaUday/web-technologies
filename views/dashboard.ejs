@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom CSS for Student Dashboard */
+        body 
+        {
+            background-image: url(https://woorise.com/wp-content/uploads/2021/03/Online-event-registration.png);
+        }
+        .container {
+            margin-top: 50px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .col-md-12 {
+            margin-bottom: 30px;
+        }
+        h2 {
+            color: #000;
+            margin-bottom: 20px;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        .personal-info-fields {
+    gap: 0px; /* Adjust the gap between fields */
+}
+
+.personal-info-fields p {
+    
+    margin-bottom: 0; /* Remove bottom margin for each field */
+}
+.personal-details,.a {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    background-color: #86afdb;
+}
+.detail {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 23%; /* Ensure each detail takes up full width */
+}
+
+.detail-label {
+    font-weight: bold;
+    color: #333;
+    min-width: 10px; /* Adjust width as needed */
+    flex-shrink: 0;
+    margin-right: 5%;
+}
+
+.detail-value {
+    color: #414746;
+    flex-grow: 1;
+    overflow: hidden; /* Hide overflowing text */
+    text-overflow: ellipsis; /* Add ellipsis to overflowing text */
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+
+    form {
+        background-color: #f9f9f9;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        margin-bottom: 20px;
+    }
+
+    form label {
+        font-weight: bold;
+    }
+
+    form .form-group {
+        margin-bottom: 15px;
+    }
+
+    form input[type="text"],
+    form textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    form button[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    form button[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    .form-container {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+
+
+    
+
+
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Student Dashboard</h1>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Personal Information</h2>
+                <div class="personal-details">
+                    <% if (student) { %>
+                        <div class="detail">
+                            <span class="detail-label">Name:</span>
+                            <span class="detail-value"><%= student.name %></span>
+                        </div>
+                        <div class="detail">
+                            <div class="detail-label">Age:</div>
+                            <div class="detail-value"><%= student.age %></div>
+                        </div>
+                        <div class="detail">
+                            <div class="detail-label">Branch:</div>
+                            <div class="detail-value"><%= student.branch %></div>
+                        </div>
+                        <div class="detail">
+                            <div class="detail-label">Batch:</div>
+                            <div class="detail-value"><%= student.batch %></div>
+                        </div>
+                    <% } else { %>
+                        <p class="no-data">No student data found.</p>
+                    <% } %>
+                </div>
+            </div>
+            
+            <div class="col-md-12">
+                <h2>Strong Subjects</h2>
+                <div class="a">
+                    <% if (student && student.strongSubjects && student.strongSubjects.length > 0) { %>
+                        <% student.strongSubjects.forEach(function(subject) { %>
+                            <p><%= subject %></p>
+                            <!-- Add more fields if needed -->
+                        <% }) %>
+                    <% } else { %>
+                        <p>No strong subjects found.</p>
+                    <% } %>
+                </div>
+                <h2>Sports Strengths</h2>
+                <div class="a">
+                    <% if (student && student.sportsStrengths && student.sportsStrengths.length > 0) { %>
+                        <% student.sportsStrengths.forEach(function(sport) { %>
+                            <p><%= sport %></p>
+                            <!-- Add more fields if needed -->
+                        <% }) %>
+                    <% } else { %>
+                        <p>No sports strengths found.</p>
+                    <% } %>
+                </div>
+                <h2>Certificates</h2>
+                <div class="a">
+                <% if (student && student.certificates && student.certificates.length > 0) { %>
+                    <% student.certificates.forEach(function(certificate) { %>
+                        <p><%= certificate %></p>
+                    <% }) %>
+                <% } else { %>
+                    <p>No certificates found.</p>
+                <% } %>
+                </div>
+                <h2>Activities</h2>
+                <div class="a">
+                    <div class="container">
+                        <% if (activities && activities.length > 0) { %>
+                            <% activities.forEach(activity => { %>
+                                <div class="alert alert-primary" role="alert">
+                                    <h4 class="alert-heading"><%= activity.name %></h4>
+                                    <p><%= activity.description %></p>
+                                </div>
+                            <% }); %>
+                        <% } else { %>
+                            <p>No activities found.</p>
+                        <% } %>
+                    </div>
+                    
+                </div>
+                <br>
+                
+                    <!-- Form to add strong subjects and sports strengths -->
+                    <form action="/addskills" method="POST" class="a">
+                        <!-- Input fields for adding new strong subjects -->
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="strongSubjects">Strong Subjects</label>
+                            <input type="text" class="form-control" id="strongSubjects" name="strongSubjects">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Add Strong Subject</button>
+                        </div>
+                    </form>
+                
+                    <form action="/addskills" method="POST" class="a">
+                        <!-- Input fields for adding new sports strengths -->
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="sportsStrengths">Sports Strengths</label>
+                            <input type="text" class="form-control" id="sportsStrengths" name="sportsStrengths">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Add Sports Strength</button>
+                        </div>
+                    </form>
+                
+                    <form action="/addskills" method="POST" class="a">
+                        <!-- Input fields for adding new certificates -->
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="certificatelink">Certificate Link</label>
+                            <input type="text" class="form-control" id="certificatelink" name="certificatelink" required>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary">Add Certificate</button>
+                        </div>
+                    </form>
+                
+                <!-- Form for deleting a specific strong subject -->
+                <form id="deleteStrongSubjectForm" action="/deleteSkill" method="POST" class="a">
+                    <div>
+                        <label for="studentName">Student Name:</label>
+                        <input type="text" id="studentName" name="studentName" required>
+                    </div>
+                    <div>
+                        <label for="strongSubject">Strong Subject to Delete:</label>
+                        <input type="text" id="strongSubject" name="deleteValue" required>
+                    </div>
+                    <input type="hidden" id="deleteField" name="deleteField" value="strongSubjects">
+                    <br>
+                    <button type="submit" class="btn btn-danger">Delete Strong Subject</button>
+                </form>
+                <form id="deleteSportsStrengthForm" action="/deletesport" method="POST" class="a">
+                    <div>
+                        <label for="studentName">Student Name:</label>
+                        <input type="text" id="studentName" name="studentName" required>
+                    </div>
+                    <div>
+                        <label for="sportstrength">Sports strength to be deleted:</label>
+                        <input type="text" id="sportstrength" name="deleteValue" required>
+                    </div>
+                    <input type="hidden" id="deleteField" name="deleteField" value="sportstrength">
+                    <br>
+                    <button type="submit" class="btn btn-danger">Delete sports strength</button>
+                </form>
+                </div>
+                <br>
+                <div class="col-md-12">
+                    <h2>Submit Feedback</h2>
+                    <form action="/submitFeedback" method="POST" class="a">
+                        
+                        <div>
+                            <label for="studentName">Student Name:</label>
+                            <input type="text" id="studentName" name="studentName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="feedbackText">Feedback:</label>
+                            <textarea class="form-control" id="feedbackText" name="feedbackText" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Feedback</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Bootstrap JS -->
+    
+    <!-- Form for updating strong subjects, sports strengths, and certificates -->
+    
+
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

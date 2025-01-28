@@ -1,0 +1,311 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom CSS for Admin Dashboard */
+        body {
+            background-color: #fff;
+            color: #000;
+        }
+        .container {
+            margin-top: 50px;
+        }
+        h1{
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h2
+        {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            margin-bottom: 30px;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .form-container {
+            margin-bottom: 30px;
+        }
+        .form-group 
+        {
+            display: inline-block;
+            margin-right: 10px; 
+            width: calc(45% - 5px); 
+            box-sizing: border-box;
+        }
+        .submit-container 
+        {
+            text-align: center;
+        }
+        .styled-table 
+        {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            min-width: 400px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        }
+        .styled-table thead tr 
+        {
+            background-color: #32aee8;
+            color: #ffffff;
+            text-align: left;
+        }
+        .styled-table th,
+        .styled-table td 
+        {
+            padding: 12px 15px;
+        }
+        .styled-table tbody tr 
+        {
+            border-bottom: 1px solid #dddddd;
+        }
+
+        .styled-table tbody tr:nth-of-type(even) 
+        {
+            background-color: rgb(206, 195, 195);
+        }
+        .styled-table tbody tr:nth-of-type(odd) 
+        {
+            background-color: #ffffff;
+        }
+
+        .styled-table tbody tr:last-of-type 
+        {
+            border-bottom: 2px solid #009879;
+        }
+
+        body 
+        {
+            background: linear-gradient(to bottom right, #4e73df, #8cd6e6);
+            color: #333; /* Adjust text color for readability */
+        }
+
+        .feedback-container {
+    background-color: #f8f9fa; /* Light gray background */
+    padding: 20px; /* Add padding for better visual separation */
+    margin-left: 200px;
+    margin-right: 200px;
+}
+
+.feedback-container h2 {
+    margin-bottom: 20px; /* Add margin bottom to separate heading from cards */
+}
+
+.feedback-container .card {
+    margin-bottom: 15px; /* Add margin bottom to separate individual feedback cards */
+}
+
+.feedback-container .card-body {
+    padding: 15px; /* Add padding for better spacing inside cards */
+    border-radius: 8px; /* Add border radius for rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add box shadow for depth effect */
+}
+
+.feedback-container .card-title {
+    font-size: 18px; /* Increase font size for student name */
+    margin-bottom: 5px; /* Add margin bottom to separate student name from feedback text */
+}
+
+.feedback-container .card-text {
+    font-size: 16px; /* Adjust font size for feedback text */
+    margin-bottom: 10px; /* Add margin bottom to separate feedback text from date */
+}
+
+.feedback-container .text-muted {
+    font-size: 14px; /* Adjust font size for date text */
+    display: block; /* Ensure the date is displayed as a block element */
+    margin-bottom: 10px; /* Add margin bottom to separate date from button */
+}
+
+.feedback-container .btn-danger {
+    margin-top: 5px; /* Add margin top to separate button from date */
+}
+
+    
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <div class="container">
+            <h2>Add Student / Register</h2>
+            <form action="/register" method="POST">
+                <div class="form-group"> 
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <!-- Add Student Fields -->
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" class="form-control" id="age" name="age" required>
+                </div>
+                <div class="form-group">
+                    <label for="branch">Branch</label>
+                    <input type="text" class="form-control" id="branch" name="branch" required>
+                </div>
+                <div class="form-group">
+                    <label for="batch">Batch</label>
+                    <input type="text" class="form-control" id="batch" name="batch" required>
+                </div>
+                <br>
+                <div class="submit-container">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+        <div class="container form-container">
+            <h2>All Students</h2>
+            <input type="text" id="searchInput" class="form-control" placeholder="Search by name" onkeyup="searchTable()">
+        </div>
+        <div class="container">
+            
+            <table id="studentsTable" class="styled-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Branch</th>
+                        <th>Batch</th>
+                        <th>Strong Subject</th>
+                        <th>Sports Strength</th>
+                        <th>Student certificates</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% students.forEach(student => { %>
+                        <tr>
+                            <td><%= student.name %></td>
+                            <td><%= student.age %></td>
+                            <td><%= student.branch %></td>
+                            <td><%= student.batch %></td>
+                            <td>
+                                <% if (student.strongSubjects && student.strongSubjects.length > 0) { %>
+                                    <ul>
+                                        <% student.strongSubjects.forEach(subject => { %>
+                                            <li><%= subject %></li>
+                                        <% }); %>
+                                    </ul>
+                                <% } else { %>
+                                    N/A
+                                <% } %>
+                            </td>
+                            <td>
+                                <% if (student.sportsStrengths && student.sportsStrengths.length > 0) { %>
+                                    <ul>
+                                        <% student.sportsStrengths.forEach(sport => { %>
+                                            <li><%= sport %></li>
+                                        <% }); %>
+                                    </ul>
+                                <% } else { %>
+                                    N/A
+                                <% } %>
+                            </td>
+                            <td>
+                                <% if (student.certificates && student.certificates.length > 0) { %>
+                                    <ul>
+                                        <% student.certificates.forEach(certificate => { %>
+                                            <li><%= certificate %></li>
+                                        <% }); %>
+                                    </ul>
+                                <% } else { %>
+                                    N/A
+                                <% } %>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="feedback-container">
+        <h2>Feedbacks</h2>
+        <% feedbacks.forEach(feedback => { %>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><%= feedback.studentName %></h5>
+                    <p class="card-text"><%= feedback.feedbackText %></p>
+                    <p class="card-subtitle text-muted"><%= feedback.dateSubmitted.toDateString() %></p>
+                    <form action="/feedbacks/<%= feedback._id %>?_method=DELETE" method="POST">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+            </div>
+        <% }); %>
+    </div>
+
+    <div class="container">
+        <h2>Add Activity</h2>
+        <form action="/activities" method="POST">
+            <div class="form-group1">
+                <label for="activityName">Activity Name</label>
+                <input type="text" class="form-control" id="activityName" name="activityName" required>
+            </div>
+            <div class="form-group1">
+                <label for="activityDescription">Activity Description</label>
+                <textarea class="form-control" id="activityDescription" name="activityDescription" required></textarea>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Add Activity</button>
+        </form>
+    </div>
+    <div class="container">
+        <h2>Activities</h2>
+        <% activities.forEach(activity => { %>
+            <div class="alert alert-primary" role="alert">
+                <h4 class="alert-heading"><%= activity.name %></h4>
+                <p><%= activity.description %></p>
+                <form action="/activities/<%= activity._id %>?_method=DELETE" method="POST">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        <% }); %>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function searchTable() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>
